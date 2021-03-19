@@ -4,19 +4,16 @@ import jwt from 'jsonwebtoken';
 import Employee from '../schemas/employee';
 import config from '../config';
 
-const { default: handlerError }: any = require('../utils/errorHandler');
-
 const router: Router = express.Router();
 
 router.use((req: Request, res: Response, next: NextFunction) => {
   try {
+    if(!req.headers.authorization) throw new Error('Unauthorized');
     const [_, token]: any = req.headers.authorization?.split('');
     jwt.verify(token, config.jwt.secret);
     next();
   } catch (error) {
-    const errKey = error.name || 'DefaultError';
-    const status = errKey === 'DefaultError' ? 500 : 400;
-    res.status(status).json(handlerError[errKey](error));
+    next(error)
   }
 });
 

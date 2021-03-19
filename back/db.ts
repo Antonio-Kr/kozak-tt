@@ -1,17 +1,22 @@
-import { MongoError } from 'mongodb';
-import mongoose from 'mongoose';
+import { MongoError } from 'mongodb'
+import mongoose from 'mongoose'
 
-import config from './config';
+import config from './config'
 
-const { user, pass, host, port, db_name } = config.mongo;
+const { user, pass, host, port, db_name } = config.mongo
 
 mongoose.connect(
   `mongodb://${user}:${pass}@${host}:${port}/${db_name}?authSource=admin`,
-  { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false },
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  },
   (err: MongoError) => {
-    if (err) throw err;
-    console.log('Connected to mongoDB');
+    if (err) throw err
+    console.log('Connected to mongoDB')
   }
-);
+)
 
-export default mongoose;
+export default mongoose

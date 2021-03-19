@@ -22,7 +22,12 @@ function MongoError(error: any) {
 }
 
 function Error(error: any) {
-  return error;
+  return { msg: error.message };
 }
 
-export default { ValidationError, MongoError, Error };
+function JsonWebTokenError(error: any) {
+  return { msg: error.message };
+}
+
+
+export default { ValidationError, MongoError, Error, JsonWebTokenError };
