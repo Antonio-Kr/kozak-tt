@@ -8,5 +8,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 1234
+      MONGO_INITDB_DATABASE: kozak
     ports:
       - 27018:27017
