@@ -4,7 +4,10 @@ axios.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
 );
 
 export const setAuthToken = (token) => {

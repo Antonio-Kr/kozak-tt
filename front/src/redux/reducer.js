@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER } from './types';
+import { LOGIN_USER, LOGOUT_USER, FETCH_EMPLOYEES } from './types';
 
 const initialState = {
   employees: [],
@@ -11,6 +11,8 @@ export const reducer = (state = initialState, { type, payload }) => {
       return { ...state, user: payload };
     case LOGOUT_USER:
       return { ...state, user: {} };
+    case FETCH_EMPLOYEES:
+      return { ...state, employees: payload };
     default:
       return state;
   }

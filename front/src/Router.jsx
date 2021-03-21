@@ -6,13 +6,14 @@ import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import Logout from './components/Logout';
 import RegistrationForm from './components/RegistrationForm';
+import Employees from './components/Employees';
 
 function Router({ user }) {
   if (!_.isEmpty(user)) {
     return (
       <Switch>
         <Route exact path='/'>
-          <Home />
+          <Employees />
         </Route>
         <Route exact path='/logout'>
           <Logout />

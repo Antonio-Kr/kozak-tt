@@ -7,7 +7,7 @@ function Navbar({ user }) {
     return (
       <ul>
         <li>
-          <Link to='/employees'>Employees</Link>
+          <Link to='/'>Employees</Link>
         </li>
         <li>
           <Link to='/logout'>Logout</Link>
@@ -17,6 +17,9 @@ function Navbar({ user }) {
   }
   return (
     <ul>
+      <li>
+        <Link to='/'>Home</Link>
+      </li>
       <li>
         <Link to='/register'>Register</Link>
       </li>

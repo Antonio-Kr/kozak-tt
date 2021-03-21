@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
-import { LOGIN_USER, LOGOUT_USER } from './types';
+import { FETCH_EMPLOYEES, LOGIN_USER, LOGOUT_USER } from './types';
 import { setAuthToken } from '../axios';
 
 export function registrationUser(user) {
@@ -38,5 +38,12 @@ export function setUser(token) {
     const data = jwt.decode(token);
     setAuthToken(token);
     dispatch({ type: LOGIN_USER, payload: data });
+  };
+}
+
+export function fetchEmployees() {
+  return async (dispatch) => {
+    const { data } = await axios.get('http://localhost:3001/employees');
+    dispatch({ type: FETCH_EMPLOYEES, payload: data });
   };
 }
