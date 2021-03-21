@@ -5,4 +5,8 @@ async function deleteUserByEmail(email: string) {
   await User.deleteOne({ email });
 }
 
-export { deleteUserByEmail };
+async function deleteEmployeeByName(name: string) {
+  await Employee.deleteMany({ name });
+}
+
+export { deleteUserByEmail, deleteEmployeeByName };

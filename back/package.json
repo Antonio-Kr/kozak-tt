@@ -6,7 +6,7 @@
   "scripts": {
     "start:watch": "nodemon dist/server.js",
     "build:watch": "tsc --watch",
-    "test": "mocha dist/test/* --exit"
+    "test": "mocha dist/test/index.test.js --exit"
   },
   "keywords": [],
   "author": "",

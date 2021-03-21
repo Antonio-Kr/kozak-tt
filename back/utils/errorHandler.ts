@@ -6,7 +6,7 @@ function ValidationError(error: any): Array<IValidationError> {
   Object.keys(error.errors).forEach((field) => {
     errors.push({
       field,
-      message: error.errors[field].message,
+      msg: error.errors[field].message,
       type: error.errors[field].properties.type,
     });
   });
@@ -17,7 +17,7 @@ function MongoError(error: any) {
   const key = Object.keys(error.keyPattern)[0];
   switch (error.code) {
     case 11000:
-      return { message: `This ${key} "${error.keyValue[key]}" already taken` };
+      return { msg: `This ${key} "${error.keyValue[key]}" already taken` };
   }
 }
 

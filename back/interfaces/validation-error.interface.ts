@@ -1,5 +1,5 @@
 export interface IValidationError {
   field: string;
-  message: string;
+  msg: string;
   type: string;
 };
