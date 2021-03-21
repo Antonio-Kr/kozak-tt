@@ -26,14 +26,6 @@ userSchema.pre<IUser>('save', function (next) {
   next();
 });
 
-userSchema.set('toJSON', {
-  transform: function () {
-    const obj = this?.toObject();
-    delete obj.password;
-    return obj;
-  },
-});
-
 const User = mongoose.model<IUser>('User', userSchema);
 
 export default User;

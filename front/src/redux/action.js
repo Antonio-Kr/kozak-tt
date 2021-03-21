@@ -1,26 +1,42 @@
-import { LOGIN_USER } from './types';
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import instance, { setAuthToken } from '../axios';
+
+import { LOGIN_USER, LOGOUT_USER } from './types';
+import { setAuthToken } from '../axios';
 
 export function registrationUser(user) {
   return async (dispatch) => {
-    instance.post('users/register', user).then((response) => {
-      console.log(response);
-    });
+    axios
+      .post('http://localhost:3001/users/register', user)
+      .then((response) => {
+        console.log(response);
+      });
   };
 }
 
 export function loginUser(user) {
   return async (dispatch) => {
-    console.log(instance);
-    const res = await instance.post('/users/login', user, {
+    const res = await axios.post('http://localhost:3001/users/login', user, {
       'Content-Type': 'application/json',
     });
-    const data = jwt.decode(res.token);
+    const data = jwt.decode(res.data.token);
+    localStorage.setItem('token', res.data.token);
+    setAuthToken(res.data.token);
+    dispatch({ type: LOGIN_USER, payload: data });
+  };
+}
 
-    localStorage.setItem('token', res.token);
-    setAuthToken(res.token);
+export function logoutUser() {
+  return async (dispatch) => {
+    setAuthToken(null);
+    dispatch({ type: LOGOUT_USER });
+  };
+}
 
+export function setUser(token) {
+  return async (dispatch) => {
+    const data = jwt.decode(token);
+    setAuthToken(token);
     dispatch({ type: LOGIN_USER, payload: data });
   };
 }
