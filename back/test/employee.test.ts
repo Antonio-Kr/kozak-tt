@@ -24,6 +24,7 @@ export default () =>
       contactInfo: 'telega: @antonio_kr',
       salary: 100,
       position: 'Developer',
+      birthday: new Date(1996, 7, 15),
     };
 
     let agent: SuperTest<Test>;
@@ -78,6 +79,7 @@ export default () =>
           expect(status).eq(200);
 
           const { _id, __v, createdAt, updatedAt, ...employee } = body;
+          employee.birthday = new Date(employee.birthday);
           expect(employee).deep.eq(employeeData);
         })
         .end(done);
@@ -256,6 +258,28 @@ export default () =>
         .end(done);
     });
 
+    it('Should fall with required birthday error', (done: Done) => {
+      const employee: any = _.cloneDeep(employeeData);
+      delete employee.birthday;
+      agent
+        .post('/employees')
+        .set('Authorization', token)
+        .send(employee)
+        .expect((res: Response) => {
+          const { status, body } = res;
+          expect(status).eq(400);
+
+          const errorTemplate = {
+            field: 'birthday',
+            msg: `Birthday is required field`,
+            type: 'required',
+          };
+          const [error] = body;
+          expect(error).deep.eq(errorTemplate);
+        })
+        .end(done);
+    });
+
     it('Should update one employee', (done: Done) => {
       agent
         .post('/employees')
@@ -276,6 +300,7 @@ export default () =>
             .set('Authorization', token)
             .send(employee)
             .expect((res: Response) => {
+              res.body.birthday = new Date(res.body.birthday);
               expect(employee).deep.eq(res.body);
             })
             .end(done);

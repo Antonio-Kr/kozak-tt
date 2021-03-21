@@ -24,6 +24,10 @@ const employeeSchema = new Schema(
       type: String,
       required: [true, 'Job position is required field'],
     },
+    birthday: {
+      type: Date,
+      required: [true, 'Birthday is required field'],
+    },
   },
   { timestamps: true }
 );

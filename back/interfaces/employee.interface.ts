@@ -4,4 +4,5 @@ export interface IEmployee {
   contactInfo: string;
   salary: number;
   position: string;
+  birthday: Date;
 }

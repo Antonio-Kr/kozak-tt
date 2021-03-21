@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import express, { Express, NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 
 import config from './config';
 import './db';
@@ -9,6 +10,16 @@ import users from './routes/users';
 const { default: handlerError }: any = require('./utils/errorHandler');
 
 const app: Express = express();
+
+app.use(cors());
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
